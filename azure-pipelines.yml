@@ -3,8 +3,10 @@
 trigger:
 - master
 
+# pool:
+#   name: 'Local Device'
 pool:
-  name: 'Local Device'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - script: echo Running on my on-premises device!
