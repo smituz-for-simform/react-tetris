@@ -9,7 +9,10 @@ jobs:
     name: 'Local Device'
 
   steps:
-  - script: echo Running on my on-premises device!
+  - script: |
+      echo "The current user is: $USER"
+      echo "The system PATH is: $PATH"
+      echo "The agent working directory is: $AGENT_WORK_DIRECTORY"
     displayName: 'Verify Runner Location'
 
   - task: UseNode@1
