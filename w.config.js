@@ -58,9 +58,9 @@ var devPlugins =  [
   // 允许错误不打断程序, 仅开发模式需要
   new webpack.NoErrorsPlugin(),
   // 打开浏览器页面
-  new OpenBrowserPlugin({
-    url: 'http://127.0.0.1:8080/'
-  }),
+  // new OpenBrowserPlugin({
+  //   url: 'http://127.0.0.1:8080/'
+  // }),
   // css打包
   new ExtractTextPlugin('css.css', {
     allChunks: true
@@ -83,11 +83,11 @@ var productionPlugins = [
     template: __dirname + '/server/index.tmpl.html'
   }),
   // JS压缩
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }}
-  ),
+  // new webpack.optimize.UglifyJsPlugin({
+  //   compress: {
+  //     warnings: false
+  //   }}
+  // ),
   // css打包
   new ExtractTextPlugin('css-' + version + '.css', {
     allChunks: true
