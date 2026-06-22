@@ -9,14 +9,23 @@ pool:
 steps:
 - script: echo Running on my on-premises device!
   displayName: 'Verify Runner Location'
-# steps:
-#   - task: UseNode@1
-#     inputs:
-#       checkLatest: true
-#       force32bit: true
 
-#   - script: |
-#       npm install
-#       npm run build
-#     displayName: 'npm install and build'
-    
+- task: UseNode@1
+  inputs:
+    version: '24.16.0'
+    force32bit: false
+
+# Installing Dependencies
+- script: npm install
+  displayName: 'Install Dependencies'
+
+# Creating the Build
+- script: npm run build
+  displayName: 'Creating the Build Artifact'
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publishing Artifact'
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'tetris-artifact'
+    publishLocation: 'pipeline'
