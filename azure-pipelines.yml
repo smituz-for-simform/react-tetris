@@ -33,6 +33,6 @@ jobs:
     displayName: 'Publishing Artifact'
     inputs:
   #    targetPath: '$(Pipeline.Workspace)' //This the whole root directory. i.e. a, b, TestResults & s folder.
-      targetPath: '$(System.DefaultWorkingDirectory)/build'
+      targetPath: '$(System.DefaultWorkingDirectory)/docs'
       artifact: 'tetris-artifact'
       publishLocation: 'pipeline'
