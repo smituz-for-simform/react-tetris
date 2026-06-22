@@ -3,39 +3,33 @@
 trigger:
 - master
 
-pool:
-  name: 'Local Device'
+jobs:
+- job: BuildAndPublishArtifact
+  pool:
+    name: 'Local Device'
 
-# Dedicated folder for UseNode@1 task to cache Node Installation
-variables:
- AGENT_TOOLSDIRECTORY: '/opt/myazagent/_tool'
+  steps:
+  - script: echo Running on my on-premises device!
+    displayName: 'Verify Runner Location'
 
+  - task: UseNode@1
+    inputs:
+      version: '24.16.0'
+      force32bit: false
 
-# pool:
-#   vmImage: 'ubuntu-latest'
+  # Installing Dependencies
+  - script: npm install
+    displayName: 'Install Dependencies'
 
-steps:
-- script: echo Running on my on-premises device!
-  displayName: 'Verify Runner Location'
+  # Creating the Build
+  - script: npm run build
+    displayName: 'Creating the Build Artifact'
 
-- task: UseNode@1
-  inputs:
-    version: '24.16.0'
-    force32bit: false
-
-# Installing Dependencies
-- script: npm install
-  displayName: 'Install Dependencies'
-
-# Creating the Build
-- script: npm run build
-  displayName: 'Creating the Build Artifact'
-
-# Saving the Artifact
-- task: PublishPipelineArtifact@1
-  displayName: 'Publishing Artifact'
-  inputs:
-#    targetPath: '$(Pipeline.Workspace)' //This the whole root directory. i.e. a, b, TestResults & s folder.
-    targetPath: '$(System.DefaultWorkingDirectory)/build'
-    artifact: 'tetris-artifact'
-    publishLocation: 'pipeline'
+  # Saving the Artifact
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publishing Artifact'
+    inputs:
+  #    targetPath: '$(Pipeline.Workspace)' //This the whole root directory. i.e. a, b, TestResults & s folder.
+      targetPath: '$(System.DefaultWorkingDirectory)/build'
+      artifact: 'tetris-artifact'
+      publishLocation: 'pipeline'
