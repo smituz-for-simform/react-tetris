@@ -5,6 +5,12 @@ trigger:
 
 pool:
   name: 'Local Device'
+
+# Dedicated folder for UseNode@1 task to cache Node Installation
+variables:
+ AGENT_TOOLSDIRECTORY: '/opt/myazagent/_tool'
+
+
 # pool:
 #   vmImage: 'ubuntu-latest'
 
