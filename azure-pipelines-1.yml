@@ -1,0 +1,38 @@
+# The manual Release Pipeline
+
+trigger: none
+
+resources:
+  pipelines:
+    - pipeline: BuildPipeline
+      source: smituz-for-simform.react-tetris
+      trigger: none
+
+jobs:
+  - deployment: DeploytoAppService
+   
+    pool:
+      vmImage: ubuntu-latest
+    
+    environment: dev
+
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            
+            - download: BuildPipeline
+              artifact: tetris-artifact
+            
+            - script: |
+                echo "Downloaded artifact contents:"
+                ls -R $(Pipeline.Workspace)
+              displayName: Verify Artifact
+
+            - task: AzureWebApp@1
+              displayName: Deploy React App
+              inputs:
+                azureSubscription: 'Azure For Students'
+                appType: 'webAppLinux'
+                appName: 'wa-tetris'
+                package: '$(Pipeline.Workspace)/BuildPipeline/tetris-artifact'
