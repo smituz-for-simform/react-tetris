@@ -3,10 +3,10 @@
 trigger:
 - master
 
-# pool:
-#   name: 'Local Device'
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'Local Device'
+# pool:
+#   vmImage: 'ubuntu-latest'
 
 steps:
 - script: echo Running on my on-premises device!
@@ -25,9 +25,11 @@ steps:
 - script: npm run build
   displayName: 'Creating the Build Artifact'
 
+# Saving the Artifact
 - task: PublishPipelineArtifact@1
   displayName: 'Publishing Artifact'
   inputs:
-    targetPath: '$(Pipeline.Workspace)'
+#    targetPath: '$(Pipeline.Workspace)' //This the whole root directory. i.e. a, b, TestResults & s folder.
+    targetPath: '$(System.DefaultWorkingDirectory)/build'
     artifact: 'tetris-artifact'
     publishLocation: 'pipeline'
