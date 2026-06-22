@@ -32,7 +32,7 @@ jobs:
             - task: AzureWebApp@1
               displayName: Deploy React App
               inputs:
-                azureSubscription: 'Azure For Students'
+                azureSubscription: 'Tetris Web App Dev'
                 appType: 'webAppLinux'
                 appName: 'wa-tetris'
                 package: '$(Pipeline.Workspace)/BuildPipeline/tetris-artifact'
